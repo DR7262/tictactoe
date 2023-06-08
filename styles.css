@@ -2,3 +2,15 @@ header {
     display: flex;
     justify-content: center;
 }
+
+.grid-container {
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    padding: 10px;
+}
+
+.grid-item {
+    border: 1px solid black;
+}
