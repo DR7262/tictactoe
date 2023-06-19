@@ -12,5 +12,10 @@ header {
 }
 
 .grid-item {
+    font-family: Arial, Helvetica, sans-serif;
     border: 1px solid black;
+    font-size: 5rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
