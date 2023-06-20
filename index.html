@@ -30,12 +30,17 @@
         const gridItems = document.querySelectorAll('.grid-item');
         const boardState = new Array(X, O, X, O, X, O, O, X, X);
 
+        function addSymbol(boxNum, symbol) {
+            boardState[boxNum] = symbol;
+        }
+
         function printGameBoard() {for (i = 0; i < gridItems.length; i++) {
             gridItems[i].innerHTML = boardState[i];
         }};
 
         return {
-            printGameBoard
+            printGameBoard,
+            addSymbol
         };
     })();
 </script>
