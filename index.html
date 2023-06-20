@@ -24,14 +24,19 @@
     </div>
 </body>
 <script>
-    var gridItems = document.querySelectorAll('.grid-item');
+    const gameBoard = (() => {
+        const X = 'X';
+        const O = 'O';
+        const gridItems = document.querySelectorAll('.grid-item');
+        const boardState = new Array(X, O, X, O, X, O, O, X, X);
 
-    const X = 'X';
-    const O = 'O';
-    let gameBoard = new Array(X, O, X, O, X, O, O, X, X);
+        function printGameBoard() {for (i = 0; i < gridItems.length; i++) {
+            gridItems[i].innerHTML = boardState[i];
+        }};
 
-    function printGameBoard() {for (i = 0; i < gridItems.length; i++) {
-        gridItems[i].innerHTML = gameBoard[i];
-    }};
+        return {
+            printGameBoard
+        };
+    })();
 </script>
 </html>
