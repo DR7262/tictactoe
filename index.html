@@ -40,9 +40,10 @@
 
         gridItems.forEach(gridItem => {
         gridItem.addEventListener ('click', function(e) {
-            gameBoard.addSymbol(e.target.dataset.box, 'X');
-            gameBoard.printGameBoard();
-            });
+            if (e.target.innerHTML === '') {
+                gameBoard.addSymbol(e.target.dataset.box, 'X');
+                gameBoard.printGameBoard();
+            } else {console.log('Spot Taken!')}});
         });
 
         return {
@@ -50,5 +51,15 @@
             addSymbol
         };
     })();
+
+    const Player = (playerName, playerSymbol) => {
+        const name = playerName;
+        const symbol = playerSymbol;
+
+        return {
+            name,
+            symbol
+        };
+    };
 </script>
 </html>
