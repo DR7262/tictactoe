@@ -24,41 +24,43 @@
     </div>
 </body>
 <script>
-    const gameBoard = (() => {
-        const X = 'X';
-        const O = 'O';
-        const boardState = new Array('F', '', '', '', '', '', '', '', '');
-        const gridItems = document.querySelectorAll('.grid-item');
+    const gameState = (() => {
+        const gameBoard = (() => {
+            const X = 'X';
+            const O = 'O';
+            const boardState = new Array('', '', '', '', '', '', '', '', '');
+            const gridItems = document.querySelectorAll('.grid-item');
 
-        function addSymbol(boxNum, symbol) {
-            boardState[boxNum] = symbol;
-        }
+            function addSymbol(boxNum, symbol) {
+                boardState[boxNum] = symbol;
+            }
 
-        function printGameBoard() {for (i = 0; i < gridItems.length; i++) {
-            gridItems[i].innerHTML = boardState[i];
-        }};
+            function printGameBoard() {for (i = 0; i < gridItems.length; i++) {
+                gridItems[i].innerHTML = boardState[i];
+            }};
 
-        gridItems.forEach(gridItem => {
-        gridItem.addEventListener ('click', function(e) {
-            if (e.target.innerHTML === '') {
-                gameBoard.addSymbol(e.target.dataset.box, 'X');
-                gameBoard.printGameBoard();
-            } else {console.log('Spot Taken!')}});
-        });
+            gridItems.forEach(gridItem => {
+            gridItem.addEventListener ('click', function(e) {
+                if (boardState[e.target.dataset.box] === '') {
+                    gameBoard.addSymbol(e.target.dataset.box, 'X');
+                    gameBoard.printGameBoard();
+                } else {console.log('Spot Taken!')}});
+            });
 
-        return {
-            printGameBoard,
-            addSymbol
-        };
+            return {
+                printGameBoard,
+                addSymbol
+            };
+        })();
     })();
 
     const Player = (playerName, playerSymbol) => {
-        const name = playerName;
-        const symbol = playerSymbol;
+        const getName = () => playerName
+        const getSymbol = () => playerSymbol
 
         return {
-            name,
-            symbol
+            getName,
+            getSymbol
         };
     };
 </script>
