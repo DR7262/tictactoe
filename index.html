@@ -24,58 +24,55 @@
     </div>
 </body>
 <script>
-    const gameState = (() => {
-        const gameBoard = (() => {
-            const X = 'X';
-            const O = 'O';
-            const boardState = new Array('', '', '', '', '', '', '', '', '');
-            const gridItems = document.querySelectorAll('.grid-item');
+    const gameBoard = (() => {
+        const boardState = new Array('', '', '', '', '', '', '', '', '');
+        const gridItems = document.querySelectorAll('.grid-item');
 
-            function clearBoardState() {
-                for (let i = 0; i < boardState.length; i++) {
-                    boardState[i] = '';
-                }
-            };
-
-            const clearBoard = () => {
-                clearBoardState()
-                printGameBoard()
+        function clearBoardState() {
+            for (let i = 0; i < boardState.length; i++) {
+                boardState[i] = '';
             }
-                
-            function addSymbol(boxNum, symbol) {
-                boardState[boxNum] = symbol;
-            };
+        };
 
-            function printGameBoard() {
-                for (i = 0; i < gridItems.length; i++) {
-                    gridItems[i].innerHTML = boardState[i];
-                }
-            };
+        const clearBoard = () => {
+            clearBoardState()
+            printGameBoard()
+        }
+            
+        function addSymbol(boxNum, symbol) {
+            boardState[boxNum] = symbol;
+        };
 
-            gridItems.forEach(gridItem => {
+        function printGameBoard() {
+            for (i = 0; i < gridItems.length; i++) {
+                gridItems[i].innerHTML = boardState[i];
+            }
+        };
+
+        gridItems.forEach(gridItem => {
             gridItem.addEventListener ('click', function(e) {
                 if (boardState[e.target.dataset.box] === '') {
-                    gameBoard.addSymbol(e.target.dataset.box, 'X');
-                    gameBoard.printGameBoard();
-                } else {console.log('Spot Taken!')}});
+                    addSymbol(e.target.dataset.box, 'X');
+                    printGameBoard();
+                } else {console.log('Spot Taken!')}
             });
-
-            return {
-                printGameBoard,
-                addSymbol,
-                clearBoard
-            };
-        })();
+        });
     })();
 
-    const Player = (playerName, playerSymbol) => {
-        const getName = () => playerName
-        const getSymbol = () => playerSymbol
+    const gameState = (() => {
+        const Player = (playerName, playerSymbol) => {
+            const getName = () => playerName
+            const getSymbol = () => playerSymbol
 
-        return {
-            getName,
-            getSymbol
+            return {
+                    getName,
+                    getSymbol
+            };
         };
-    };
+
+        const Player1 = ('Player 1', 'O')
+        const Player2 = ('Player 2', 'X')
+        const currentPlayer = Player1.getName();
+    })();
 </script>
 </html>
