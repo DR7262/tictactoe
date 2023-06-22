@@ -31,13 +31,26 @@
             const boardState = new Array('', '', '', '', '', '', '', '', '');
             const gridItems = document.querySelectorAll('.grid-item');
 
+            function clearBoardState() {
+                for (let i = 0; i < boardState.length; i++) {
+                    boardState[i] = '';
+                }
+            };
+
+            const clearBoard = () => {
+                clearBoardState()
+                printGameBoard()
+            }
+                
             function addSymbol(boxNum, symbol) {
                 boardState[boxNum] = symbol;
-            }
+            };
 
-            function printGameBoard() {for (i = 0; i < gridItems.length; i++) {
-                gridItems[i].innerHTML = boardState[i];
-            }};
+            function printGameBoard() {
+                for (i = 0; i < gridItems.length; i++) {
+                    gridItems[i].innerHTML = boardState[i];
+                }
+            };
 
             gridItems.forEach(gridItem => {
             gridItem.addEventListener ('click', function(e) {
@@ -49,7 +62,8 @@
 
             return {
                 printGameBoard,
-                addSymbol
+                addSymbol,
+                clearBoard
             };
         })();
     })();
