@@ -55,6 +55,7 @@
                     let currentPlayer = gameState.getCurrentPlayer();
                     addSymbol(e.target.dataset.box, currentPlayer.getSymbol());
                     printGameBoard();
+                    gameState.updateCurrentPlayer();
                 } else {console.log('Spot Taken!')}
             });
         });
@@ -73,12 +74,17 @@
 
         const Player1 = Player('Player 1', 'O')
         const Player2 = Player('Player 2', 'X')
-        const currentPlayer = Player1;
+        let currentPlayer = Player1;
 
         const getCurrentPlayer = () => currentPlayer;
 
+        const updateCurrentPlayer = () => {
+            currentPlayer = (currentPlayer === Player1) ? Player2 : Player1;
+        }
+
         return {
-            getCurrentPlayer
+            getCurrentPlayer,
+            updateCurrentPlayer
         }
     })();
 </script>
