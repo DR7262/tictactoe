@@ -55,10 +55,20 @@
                     let currentPlayer = gameState.getCurrentPlayer();
                     addSymbol(e.target.dataset.box, currentPlayer.getSymbol());
                     printGameBoard();
+
+                    if (gameState.checkWin()) {
+                        console.log(`${currentPlayer.getName()} wins!`);
+                    }
                     gameState.updateCurrentPlayer();
                 } else {console.log('Spot Taken!')}
             });
         });
+
+        const getBoardState = () => boardState;
+
+        return {
+            getBoardState
+        }
     })();
 
     const gameState = (() => {
@@ -82,9 +92,32 @@
             currentPlayer = (currentPlayer === Player1) ? Player2 : Player1;
         }
 
+        const checkWin = () => {
+            boardState = gameBoard.getBoardState();
+            const winningCombinations = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // Horizontal rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // Vertical columns
+                [0, 4, 8], [2, 4, 6] // Diagonal lines
+            ];
+
+            for (const combination of winningCombinations) {
+                const [a, b, c] = combination;
+                if (
+                boardState[a] !== '' &&
+                boardState[a] === boardState[b] &&
+                boardState[a] === boardState[c]
+                ) {
+                return true; // Winning condition met
+                }
+            }
+
+            return false; // No winning condition met
+        };
+
         return {
             getCurrentPlayer,
-            updateCurrentPlayer
+            updateCurrentPlayer,
+            checkWin,
         }
     })();
 </script>
