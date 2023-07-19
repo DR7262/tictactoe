@@ -43,8 +43,19 @@
             }
         };
 
+        const highlightCurrentPlayer = () => {
+            if (gameState.getCurrentPlayer() === 'one') {
+                document.getElementsByClassName('two')[0].classList.toggle('active');
+                document.getElementsByClassName('one')[0].classList.toggle('active');
+            } else {
+                document.getElementsByClassName('one')[0].classList.toggle('active');
+                document.getElementsByClassName('two')[0].classList.toggle('active');
+            }
+        }
+
         return {
-            printGameBoard
+            printGameBoard,
+            highlightCurrentPlayer
         }
     })();
 
@@ -61,24 +72,29 @@
 
                     if (gameState.checkWin()) {
                         console.log(`${currentPlayer.getName()} wins!`);
+                    } else {
+                        updateCurrentPlayer();
+                        displayController.highlightCurrentPlayer();
                     }
-                    gameState.updateCurrentPlayer();
+                    
                 } else {console.log('Spot Taken!')}
             });
         });
 
-        const Player = (playerName, playerSymbol) => {
+        const Player = (playerName, playerSymbol, playerNumber) => {
             const getName = () => playerName
             const getSymbol = () => playerSymbol
+            const getNumber = () => playerNumber
 
             return {
                     getName,
-                    getSymbol
+                    getSymbol,
+                    getNumber
             };
         };
 
-        const Player1 = Player('Player 1', 'O')
-        const Player2 = Player('Player 2', 'X')
+        const Player1 = Player('Player 1', 'O', 'one')
+        const Player2 = Player('Player 2', 'X', 'two')
         let currentPlayer = Player1;
 
         function addSymbol(boxNum, symbol) {
@@ -122,9 +138,7 @@
 
         return {
             getCurrentPlayer,
-            updateCurrentPlayer,
             checkWin,
-            clearBoardState,
             getBoardState
         }
     })();
