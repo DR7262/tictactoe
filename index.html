@@ -36,37 +36,28 @@
     </div>
 </body>
 <script>
-    const gameBoard = (() => {
-        const boardState = new Array('', '', '', '', '', '', '', '', '');
-        const gridItems = document.querySelectorAll('.grid-item');
-
-        function clearBoardState() {
-            for (let i = 0; i < boardState.length; i++) {
-                boardState[i] = '';
-            }
-        };
-
-        const clearBoard = () => {
-            clearBoardState()
-            printGameBoard()
-        }
-            
-        function addSymbol(boxNum, symbol) {
-            boardState[boxNum] = symbol;
-        };
-
-        function printGameBoard() {
+    const displayController = (() => {
+        const printGameBoard = (gridItems, boardState) => {
             for (i = 0; i < gridItems.length; i++) {
                 gridItems[i].innerHTML = boardState[i];
             }
         };
+
+        return {
+            printGameBoard
+        }
+    })();
+
+    const gameState = (() => {
+        const gridItems = document.querySelectorAll('.grid-item');
+        const boardState = new Array('', '', '', '', '', '', '', '', '');
 
         gridItems.forEach(gridItem => {
             gridItem.addEventListener ('click', function(e) {
                 if (boardState[e.target.dataset.box] === '') {
                     let currentPlayer = gameState.getCurrentPlayer();
                     addSymbol(e.target.dataset.box, currentPlayer.getSymbol());
-                    printGameBoard();
+                    displayController.printGameBoard(gridItems, boardState);
 
                     if (gameState.checkWin()) {
                         console.log(`${currentPlayer.getName()} wins!`);
@@ -76,14 +67,6 @@
             });
         });
 
-        const getBoardState = () => boardState;
-
-        return {
-            getBoardState
-        }
-    })();
-
-    const gameState = (() => {
         const Player = (playerName, playerSymbol) => {
             const getName = () => playerName
             const getSymbol = () => playerSymbol
@@ -98,14 +81,25 @@
         const Player2 = Player('Player 2', 'X')
         let currentPlayer = Player1;
 
+        function addSymbol(boxNum, symbol) {
+            boardState[boxNum] = symbol;
+        };
+
+        const clearBoardState = () => {
+            for (let i = 0; i < boardState.length; i++) {
+                boardState[i] = '';
+            }
+        };
+
         const getCurrentPlayer = () => currentPlayer;
 
         const updateCurrentPlayer = () => {
             currentPlayer = (currentPlayer === Player1) ? Player2 : Player1;
         }
 
+        const getBoardState = () => boardState;
+
         const checkWin = () => {
-            boardState = gameBoard.getBoardState();
             const winningCombinations = [
                 [0, 1, 2], [3, 4, 5], [6, 7, 8], // Horizontal rows
                 [0, 3, 6], [1, 4, 7], [2, 5, 8], // Vertical columns
@@ -119,17 +113,19 @@
                 boardState[a] === boardState[b] &&
                 boardState[a] === boardState[c]
                 ) {
-                return true; // Winning condition met
+                return true;
                 }
             }
 
-            return false; // No winning condition met
+            return false;
         };
 
         return {
             getCurrentPlayer,
             updateCurrentPlayer,
             checkWin,
+            clearBoardState,
+            getBoardState
         }
     })();
 </script>
