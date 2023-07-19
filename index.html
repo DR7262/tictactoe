@@ -26,10 +26,10 @@
             <div class="grid-item" data-box="8"></div>
         </div>
         <div class="scoreCard">
-            <div class="playerScore">Player 1
+            <div class="playerScore one">Player 1
                 <div class="score">0</div>
             </div>
-            <div class="playerScore">Player 2
+            <div class="playerScore two">Player 2
                 <div class="score">0</div>
             </div>
         </div>
@@ -44,12 +44,12 @@
         };
 
         const highlightCurrentPlayer = () => {
-            if (gameState.getCurrentPlayer() === 'one') {
-                document.getElementsByClassName('two')[0].classList.toggle('active');
-                document.getElementsByClassName('one')[0].classList.toggle('active');
-            } else {
-                document.getElementsByClassName('one')[0].classList.toggle('active');
-                document.getElementsByClassName('two')[0].classList.toggle('active');
+            if (gameState.getCurrentPlayer().getNumber() === 'one' && document.getElementsByClassName('player two')[0].classList[2] == 'active') {
+                document.getElementsByClassName('player two')[0].classList.toggle('active');
+                document.getElementsByClassName('player one')[0].classList.toggle('active');
+            } else if (gameState.getCurrentPlayer().getNumber() === 'two' && document.getElementsByClassName('player one')[0].classList[2] == 'active') {
+                document.getElementsByClassName('player one')[0].classList.toggle('active');
+                document.getElementsByClassName('player two')[0].classList.toggle('active');
             }
         }
 
