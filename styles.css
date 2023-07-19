@@ -5,7 +5,7 @@ header {
 
 .main {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
@@ -15,6 +15,16 @@ header {
     flex-direction: column;
     justify-content: space-around;
     align-content: center;
+}
+
+.player {
+    padding: 10px;
+}
+
+.active {
+    color: white;
+    background-color: black;
+    border-radius: 9px;
 }
 
 .grid-container {
