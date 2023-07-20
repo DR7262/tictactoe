@@ -66,6 +66,7 @@
     const gameState = (() => {
         const gridItems = document.querySelectorAll('.grid-item');
         const boardState = new Array('', '', '', '', '', '', '', '', '');
+        const restart = document.getElementById('restart')
 
         gridItems.forEach(gridItem => {
             gridItem.addEventListener ('click', function(e) {
@@ -89,6 +90,14 @@
                     
                 } else {console.log('Spot Taken!')}
             });
+        });
+
+        restart.addEventListener('click', function(e) {
+            clearBoardState(gridItems, boardState);
+            displayController.printGameBoard(gridItems, boardState);
+            document.getElementById('overlay').classList.toggle('hidden');
+            updateCurrentPlayer();
+            displayController.highlightCurrentPlayer();
         });
 
         const Player = (playerName, playerSymbol, playerNumber, playerScore) => {
