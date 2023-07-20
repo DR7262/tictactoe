@@ -38,6 +38,9 @@ header {
 
 #overlay {
     background-color: rgba(0, 0, 0, 0.272);
+    display: grid;
+    align-content: center;
+    justify-content: center;
     position: absolute;
     width: 300px;
     height: 300px;
@@ -48,15 +51,12 @@ header {
     color: white;
     padding: 10px;
     border-radius: 9px;
-    position: absolute;
-    top: 30%;
-    left: 31%;
     box-shadow: 0px 2px white;
 }
 
 #winnerText:active {
     box-shadow: 0px 1px white;
-    top: 31%;
+    transform: translateY(1px);
 }
 
 #restart {
@@ -64,16 +64,14 @@ header {
     color: black;
     padding: 10px;
     border-radius: 9px;
-    position: absolute;
-    top: 59%;
-    left: 36%;
     border: none;
     box-shadow: 0px 2px black;
+    margin-bottom: 16px;
 }
 
 #restart:active {
     box-shadow: 0px 1px black;
-    top: 60%;
+    transform: translateY(1px);
 }
 
 #winnerText:hover,
@@ -83,7 +81,7 @@ header {
 }
 
 .hidden {
-    display: none;
+    visibility: hidden;
 }
 
 .grid-item {

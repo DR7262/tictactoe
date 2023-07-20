@@ -30,11 +30,11 @@
             <div class="grid-item" data-box="8"></div>
         </div>
         <div class="scoreCard">
-            <div class="playerScore one">Player 1
-                <div class="score">0</div>
+            <div class="playerName">Player 1
+                <div class="playerScore one">0</div>
             </div>
-            <div class="playerScore two">Player 2
-                <div class="score">0</div>
+            <div class="playerName">Player 2
+                <div class="playerScore two">0</div>
             </div>
         </div>
     </div>
@@ -77,8 +77,10 @@
                     if (gameState.checkWin()) {
                         document.getElementById('winnerText').innerHTML = gameState.getCurrentPlayer().getName() + ' wins!'
                         document.getElementById('overlay').classList.toggle('hidden');
+                        gameState.getCurrentPlayer().updatePlayerScore();
+                        document.getElementsByClassName(`playerScore ${gameState.getCurrentPlayer().getNumber()}`)[0].innerHTML = gameState.getCurrentPlayer().getScore();
                     } else if (boardState.includes('') == false) {
-                        document.getElementById('winnerText').innerHTML = 'It`s a tie!';
+                        document.getElementById('winnerText').innerHTML = `It's a tie!`;
                         document.getElementById('overlay').classList.toggle('hidden');
                     } else {
                         updateCurrentPlayer();
@@ -89,21 +91,33 @@
             });
         });
 
-        const Player = (playerName, playerSymbol, playerNumber) => {
+        const Player = (playerName, playerSymbol, playerNumber, playerScore) => {
             const getName = () => playerName
             const getSymbol = () => playerSymbol
             const getNumber = () => playerNumber
+            const getScore = () => playerScore
+
+            const updatePlayerScore = () => {
+                if (hasWon == true) {
+                    playerScore += 1;
+                    hasWon = false;
+                }
+            }
 
             return {
                     getName,
                     getSymbol,
-                    getNumber
+                    getNumber,
+                    getScore,
+                    updatePlayerScore
             };
         };
 
-        const Player1 = Player('Player 1', 'O', 'one')
-        const Player2 = Player('Player 2', 'X', 'two')
+        const Player1 = Player('Player 1', 'O', 'one', 0)
+        const Player2 = Player('Player 2', 'X', 'two', 0)
         let currentPlayer = Player1;
+
+        let hasWon = false;
 
         function addSymbol(boxNum, symbol) {
             boardState[boxNum] = symbol;
@@ -137,6 +151,7 @@
                 boardState[a] === boardState[b] &&
                 boardState[a] === boardState[c]
                 ) {
+                hasWon = true;
                 return true;
                 }
             }
@@ -147,7 +162,7 @@
         return {
             getCurrentPlayer,
             checkWin,
-            getBoardState
+            getBoardState,
         }
     })();
 </script>
