@@ -15,6 +15,9 @@
             <div class="player two">Player 2</div>
         </div>
         <div class="grid-container">
+            <div id= "overlay" class = "hidden">
+                <p id="winnerText"></p>
+            </div>
             <div class="grid-item" data-box="0"></div>
             <div class="grid-item" data-box="1"></div>
             <div class="grid-item" data-box="2"></div>
@@ -71,7 +74,8 @@
                     displayController.printGameBoard(gridItems, boardState);
 
                     if (gameState.checkWin()) {
-                        console.log(`${currentPlayer.getName()} wins!`);
+                        document.getElementById('winnerText').innerHTML = gameState.getCurrentPlayer().getName() + ' wins!'
+                        document.getElementById('overlay').classList.toggle('hidden');
                     } else {
                         updateCurrentPlayer();
                         displayController.highlightCurrentPlayer();
