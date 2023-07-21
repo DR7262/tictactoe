@@ -1,6 +1,8 @@
 header {
     display: flex;
     justify-content: center;
+    font-weight: 800;
+    font-size: 2rem;
 }
 
 .main {
@@ -20,11 +22,23 @@ header {
 
 .player {
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .active {
     color: white;
     background-color: black;
+    border-radius: 9px;
+}
+
+.playerScore {
+    padding: 10px;
+    margin-top: 4px;
+    background-color: black;
+    color: white;
     border-radius: 9px;
 }
 
